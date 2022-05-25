@@ -13,4 +13,14 @@ public interface MemberDAO {
 
 	List<MemberDTO> mList();
 
+	MemberDTO mLogin(MemberDTO member);
+
+	MemberDTO mView(String mId);
+
+	int mModify(MemberDTO member);
+
+	int mDelete(String mId);
+
+	
+
 }

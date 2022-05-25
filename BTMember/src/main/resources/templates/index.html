@@ -16,30 +16,34 @@
 	</style>
 </head>
 <body>
-	<h1>스프링부트 Input Data Test!</h1>
-	<form action="mJoin" method="post">
+	<h1>Member Index</h1>
+	<form action="mJoin" method="post" enctype="multipart/form-data">
 		아이디 : <input type="text" name="mId"/><br/>
 		비밀번호 : <input type="text" name="mPw"/><br/>
 		이름 : <input type="text" name="mName"/><br/>
-		생년월일 : <input type="date" name="mBirth"/><br/>
-		성별 : <input type="text" name="mGender"/><br/>
+		
+		
 		이메일 : <input type="email" name="mEmail"/><br/>
+		프로필 : <input type="file" name="mProfile"/><br/>
 		<input type="submit" value="가입"/><br/>
 	</form>
 	
 	<br/><hr/><br/>
 	<button onclick="location.href='mList'">목록보기</button>
+	<button th:if="${session.login eq null}" onclick="location.href='mLoginForm'">로그인</button>
+	<button th:if="${session.login ne null}" onclick="location.href='mLogout'">로그아웃</button>
 	
+	<p th:if="${session.login ne null}" th:text="${session.login.mId}+'님 로그인 성공'"></p>
 	<table>
 		<caption>회원목록</caption>
 		<tr>
 			<th>아이디</th>
 			<th>비밀번호</th>
 			<th>이름</th>
-			<th>생년월일</th>
-			<th>성별</th>
 			<th>이메일</th>
 			
+			<th>수정</th>
+			<th>삭제</th>
 		</tr>
 		<!-- 
 		<c:forEach var="data" items="idto">
@@ -47,13 +51,13 @@
 		</c:forEach> -->
 		
 		<tr th:each="list : ${member}">
-			<td th:text="${list.mId}"></td>
+			<td><a th:href="@{mView(mId=${list.mId})}" th:text="${list.mId}"></a></td>
 			<td th:text="${list.mPw}"></td>
 			<td th:text="${list.mName}"></td>
-			<td th:text="${list.mBirth}"></td>
-			<td th:text="${list.mGender}"></td>
 			<td th:text="${list.mEmail}"></td>
 			
+			<td><a th:href="@{mModiForm(mId=${list.mId})}" th:text="'수정'"></a></td>
+			<td><a th:href="@{mDelete(mId=${list.mId})}" th:text="'삭제'"></a></td>
 		</tr>
 	</table>
 	

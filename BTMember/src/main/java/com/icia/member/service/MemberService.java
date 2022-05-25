@@ -12,4 +12,14 @@ public interface MemberService {
 
 	ModelAndView mList();
 
+	ModelAndView mLogin(MemberDTO member);
+
+	ModelAndView mView(String mId);
+
+	ModelAndView mModiForm(String mId);
+
+	ModelAndView mModify(MemberDTO member) throws IllegalStateException, IOException;
+
+	ModelAndView mDelete(String mId);
+
 }
